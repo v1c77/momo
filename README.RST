@@ -1,8 +1,12 @@
 momo
 ----
-MongoModule used in gunicorn-pygrpcio server
+grpc mongoengine plugin
 
 
-gogo gunicorn grpc server
-=========================
+gogo
+----
+python grpc service staging
 
+
+
+all the code is in draft....

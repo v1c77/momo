@@ -5,7 +5,7 @@ momo.utils
 ~~~~~~~~~~~~~~~
 
 This module provides common utils, as a standalone util module,
-it shouldn't import any other modules from package zeus_core.
+it shouldn't import any other modules from package
 """
 
 import logging
@@ -52,7 +52,6 @@ NUM_MAP = u"零一二三四五六七八九"
 # used for capturing timeout error
 TServerTimeoutSentryProject = None
 
-# /path/to/zeus_core/zeus_core
 LIB_DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
 TYPE_MAP = {
@@ -541,7 +540,7 @@ cached_property = CachedProperty
 class LazyLoadProperty(object):
     """Lazy load object from module.
 
-    ``import_path`` like this: "zeus_core.tracker:tracker".
+    ``import_path`` like this: "tracker:tracker".
     """
 
     def __init__(self, import_path):
@@ -639,7 +638,7 @@ def gen_task_hash(conn, task_name, task_args):
     """
     generate unique hash string for a single mysql write task
 
-    .. seealso:: :func:`zeus_core.tx_task.gen_task_hash` (async mysql
+    .. seealso:: :func:`.tx_task.gen_task_hash` (async mysql
     transaction task hash generation)
 
     :param conn: a connectable of sqlalchemy
@@ -733,7 +732,7 @@ try:
     from setproctitle import setproctitle as _setproctitle
 
     def setproctitle(title):
-        _setproctitle("ves: %s" % title)
+        _setproctitle("vos: %s" % title)
 except ImportError:
     def setproctitle(title):
         return

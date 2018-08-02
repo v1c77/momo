@@ -200,7 +200,7 @@ class SQLLogger(object):
     _content = open(_path).read()
     DB_SENSFIELDS = set(filter(None, _content.splitlines()))
 
-    def __init__(self, name='zeus_core.sql_logger'):
+    def __init__(self, name='sql_logger'):
         self.logger = logging.getLogger(name=name)
         env.require('gevent_patched')
         self.ctx = threading.local()

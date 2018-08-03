@@ -1,13 +1,25 @@
 # -*- coding: utf-8 -*-
 
 from concurrent import futures
+import traceback
+import inspect
 import time
-
+import logging
+import sys
 import grpc
 
-from .greater_sdk import greater_pb2
-from .greater_sdk import greater_pb2_grpc
+from excemple.gogo_excmple import hello_bro_pb2
+from excemple.gogo_excmple import hello_bro_pb2_grpc
 
+
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+root.addHandler(ch)
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -25,19 +37,23 @@ def func_cost():
     print('down')
 
 
-class Greeter(greater_pb2_grpc.GreeterServicer):
+class Bro(hello_bro_pb2_grpc.BroServicer):
 
     def SayHello(self, request, context):
-        pool = futures.ThreadPoolExecutor(max_workers=2)
-        pool.submit(func_cost)
+        # pool = futures.ThreadPoolExecutor(max_workers=2)
+        # pool.submit(func_cost)
+        root.info('trace')
+        traceback.print_stack()
+        # print(inspect.stack())
 
-        return greater_pb2.HelloReply(message='Hello, %s!' % request.name,
-                                      name=request.name)
+        return hello_bro_pb2.HelloReply(
+            message='Hello, %s!' % request.name,
+            by=request.name)
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=65))
-    greater_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
+    hello_bro_pb2_grpc.add_BroServicer_to_server(Bro(), server)
     server.add_insecure_port('[::]:1994')
     server.start()
     try:
